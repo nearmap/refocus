@@ -44,6 +44,6 @@
     "lint": "run-s -s lint:*",
     "test": "run-s -s lint jest",
     "coveralls": "cat build/cov/lcov.info | coveralls",
-    "ci": "run-s clean test coveralls"
+    "ci": "run-s clean test"
   }
 }
