@@ -1,0 +1,16 @@
+{
+  "moduleNameMapper": {
+  },
+  "testRegex": "__tests__/.*-test.js$",
+  "timers": "fake",
+  "collectCoverage": true,
+  "coverageDirectory": "./build/cov",
+  "coverageThreshold": {
+    "global": {
+      "branches": 100,
+      "functions": 100,
+      "lines": 100,
+      "statements": 100
+    }
+  }
+}
