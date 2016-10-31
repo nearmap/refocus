@@ -1,11 +1,11 @@
 {
-  "name": "redux-focus",
+  "name": "refocus",
   "version": "0.1.0",
   "license": "MIT",
   "description": "Redux enhancer for managing element focus",
-  "repository": "https://github.com/nearmap/redux-focus",
-  "bugs": "https://github.com/nearmap/redux-focus/issues",
-  "homepage": "https://github.com/nearmap/redux-focus",
+  "repository": "https://github.com/nearmap/refocus",
+  "bugs": "https://github.com/nearmap/refocus/issues",
+  "homepage": "https://github.com/nearmap/refocus",
   "devDependencies": {
     "autoprefixer": "^6.5.1",
     "babel-cli": "^6.18.0",
@@ -39,11 +39,14 @@
   "scripts": {
     "start": "webpack-dev-server --progress --inline --dev",
     "clean": "rimraf ./build",
+    "test": "run-s -s lint jest",
+    "ci": "run-s clean test",
+    "build": "run-s compile pkg",
+    "compile": "babel -s --out-dir build/pkg src",
+    "pkg": "cp package.json build/pkg",
+    "lint": "run-s -s lint:*",
     "lint:js": "eslint --ignore-path .gitignore .",
     "jest": "jest --no-cache --verbose --config ./.jestrc",
-    "lint": "run-s -s lint:*",
-    "test": "run-s -s lint jest",
-    "coveralls": "cat build/cov/lcov.info | coveralls",
-    "ci": "run-s clean test"
+    "coveralls": "cat build/cov/lcov.info | coveralls"
   }
 }
