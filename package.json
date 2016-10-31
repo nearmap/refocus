@@ -1,11 +1,12 @@
 {
   "name": "refocus",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "description": "Redux enhancer for managing element focus",
   "repository": "https://github.com/nearmap/refocus",
   "bugs": "https://github.com/nearmap/refocus/issues",
   "homepage": "https://github.com/nearmap/refocus",
+  "keywords": ["redux", "focus"],
   "devDependencies": {
     "autoprefixer": "^6.5.1",
     "babel-cli": "^6.18.0",

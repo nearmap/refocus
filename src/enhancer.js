@@ -1,13 +1,4 @@
-import focusReducer from './reducer';
 import {focus} from './actions';
-
-
-const createReducer = (nextReducer)=> (state, action)=> {
-  const newState = {...nextReducer(state, action)};
-  newState.focus = focusReducer(newState.focus, action);
-
-  return newState;
-};
 
 
 const getFocusHandler = (store)=> ({target})=> {
@@ -23,7 +14,7 @@ const getFocusHandler = (store)=> ({target})=> {
 export default (createStore)=> (reducer, state, enhancer)=> {
   const {documentElement} = document;
 
-  const store = createStore(createReducer(reducer), state, enhancer);
+  const store = createStore(reducer, state, enhancer);
 
   documentElement.addEventListener('focus', getFocusHandler(store), true);
 

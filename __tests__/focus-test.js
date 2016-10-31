@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {createStore, compose} from 'redux';
+import {createStore, compose, combineReducers} from 'redux';
 
 import {focus} from '../src/actions';
 import focusEnhancer from '../src/enhancer';
+import focusReducer from '../src/reducer';
 
 
-const reducers = (state)=> state;
-const initialState = {focus: {element: null}};
+const reducers = combineReducers({
+  focus: focusReducer
+});
+
+const initialState = {};
 
 
 const createApp = ()=> (
@@ -69,5 +73,10 @@ describe('focus actions', ()=> {
 
     expect(store.getState().focus).toEqual({element: 'unmanaged'});
     expect(document.activeElement).toBe(unmanagedElem);
+  });
+
+  it('should have reducer ignore other actions', ()=> {
+    store.dispatch({type: 'foobar/spam'});
+    expect(store.getState().focus).toEqual({element: null});
   });
 });
