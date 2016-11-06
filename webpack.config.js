@@ -90,9 +90,9 @@ module.exports = {
     host: '0.0.0.0',
     progress: true,
     contentBase: './build',
-    publicPath: '/redux-focus/',
+    publicPath: '/refocus/',
     historyApiFallback: {
-      index: '/redux-focus/'
+      index: '/refocus/'
     }
   }
 };
