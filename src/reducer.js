@@ -1,10 +1,15 @@
 
 
 export default (state, action)=> {
-  if (action.type === 'focus/focus') {
-    return {...state, element: action.element};
-  } else if (state === undefined) {
+  if (state === undefined) {
     return {element: null};
+  }
+
+  switch (action.type) {
+  case 'focus/focus':
+    return {...state, element: action.element};
+  case 'focus/clear':
+    return {...state, element: null};
   }
 
   return state;

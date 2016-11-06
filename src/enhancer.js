@@ -28,11 +28,16 @@ export default (createStore)=> (reducer, state, enhancer)=> {
     // TODO: Is this premeture optimization?
     // Could just run query selector, but that would happen each time the
     // store changes.
-    if (currentElemKey !== focusElemKey && focusElemKey !== null) {
-      currentElemKey = focusElemKey;
-      const elem = document.querySelector(`[data-focus="${focusElemKey}"]`);
-      if (elem) {
-        elem.focus();
+    if (currentElemKey !== focusElemKey) {
+
+      if (focusElemKey === null) {
+        document.activeElement.blur();
+      } else {
+        currentElemKey = focusElemKey;
+        const elem = document.querySelector(`[data-focus="${focusElemKey}"]`);
+        if (elem) {
+          elem.focus();
+        }
       }
     }
   });

@@ -1,14 +1,15 @@
 {
-  "globals": {
-    "beforeEach": true,
-    "describe": true,
-    "expect": true,
-    "it": true,
-    "jest": true,
-    "jasmine": true
-  },
+    "globals": {
+        "beforeEach": true,
+        "describe": true,
+        "it": true,
+        "expect": true,
+        "jest": true,
+        "jasmine": true,
+    },
 
-  "rules": {
-    "max-nested-callbacks": [2, 3]
-  }
+    "rules": {
+        "max-nested-callbacks": [2, 3],
+        "max-statements": [2, 12]
+    }
 }
