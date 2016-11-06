@@ -29,11 +29,11 @@ export default (createStore)=> (reducer, state, enhancer)=> {
     // Could just run query selector, but that would happen each time the
     // store changes.
     if (currentElemKey !== focusElemKey) {
-
+      currentElemKey = focusElemKey;
+      
       if (focusElemKey === null) {
         document.activeElement.blur();
       } else {
-        currentElemKey = focusElemKey;
         const elem = document.querySelector(`[data-focus="${focusElemKey}"]`);
         if (elem) {
           elem.focus();
