@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 
-import {focus} from '../src/actions';
+import {focus, clearFocus} from '../src/actions';
 
 
 const App = ({onFocusInput, onFocusSpan, onClearFocus, storeElem})=> (
@@ -51,7 +51,7 @@ const mapStateToProps = (state)=> ({
 const mapDispatchToProps = (dispatch)=> ({
   onFocusInput: ()=> dispatch(focus('input-1')),
   onFocusSpan: ()=> dispatch(focus('span-1')),
-  onClearFocus: ()=> dispatch(focus(null))
+  onClearFocus: ()=> dispatch(clearFocus())
 });
 
 export default connect(
