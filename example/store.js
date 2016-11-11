@@ -4,17 +4,7 @@ import focusEnhancer from '../src/enhancer';
 
 import reducers from './reducers';
 
-
-function getReduxDevTools() {
-  const {devToolsExtension} = window; // eslint-disable-line no-undef
-  let enhancer = (arg)=> arg;
-
-  /* istanbul ignore if */
-  if (typeof devToolsExtension === 'function') {
-    enhancer = devToolsExtension();
-  }
-  return enhancer;
-}
+import DevTools from './devtools';
 
 
 const initialState = {};
@@ -24,6 +14,6 @@ export default createStore(
   initialState,
   compose(
     focusEnhancer,
-    getReduxDevTools()
+    DevTools.instrument()
   )
 );

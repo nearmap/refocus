@@ -5,8 +5,6 @@ const path = require('path');
 
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer');
 
 const NODE_ENV = (
   process.env.NODE_ENV
@@ -23,7 +21,7 @@ module.exports = {
   },
 
   output: {
-    path: path.join(__dirname, 'build', 'pkg'),
+    path: path.join(__dirname, 'docs'),
     filename: '[name]-[chunkhash].js'
   },
 
@@ -39,14 +37,13 @@ module.exports = {
       filename: 'index.html',
       chunks: ['app']
     }),
-    new ExtractTextPlugin('[name]-[chunkhash].css'),
     ...(
       NODE_ENV === 'production' ? [
         new webpack.optimize.UglifyJsPlugin({
           compress: {
             warnings: false
           },
-          sourceMap: false
+          sourceMap: true
         }),
         new webpack.optimize.DedupePlugin()
       ] : []
@@ -55,33 +52,10 @@ module.exports = {
 
   module: {
     loaders: [{
-      test: /(\.scss|\.css)$/,
-      loader: ExtractTextPlugin.extract(
-        'style',
-        'css?modules' +
-          `${NODE_ENV === 'production' ? '' : '&sourceMap'}` +
-          '&importLoaders=1' +
-          '&localIdentName=[name]_[local]_[hash:base64:5]' +
-          '&camelCase' +
-        '!postcss!sass'
-      )
-    }, {
-      test: /\.(png|jpg|ico)$/,
-      loader: 'url-loader?limit=1'
-    }, {
       test: /\.jsx?$/,
       exclude: /node_modules/,
       loader: 'babel'
     }]
-  },
-  // adds vendor prefixes to css
-  postcss: [autoprefixer],
-  sassLoader: {
-    sourceMap: NODE_ENV !== 'production',
-    omitSourceMapUrl: true,
-    includePaths: [
-      path.resolve(__dirname, './node_modules')
-    ]
   },
 
   devtool: NODE_ENV === 'production' ? '' : '#inline-source-map',
