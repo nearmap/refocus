@@ -61,20 +61,6 @@ describe('focus actions', ()=> {
     expect(document.activeElement).toBe(testElem1);
   });
 
-  it('should update store when managed element received focus', ()=> {
-    testElem1.focus();
-
-    expect(store.getState().focus).toEqual({element: 'test-elem-1'});
-  });
-
-  it('should update store when unmanaged element received focus', ()=> {
-    testElem1.focus();
-    unmanagedElem.focus();
-
-    expect(store.getState().focus).toEqual({element: 'unmanaged'});
-    expect(document.activeElement).toBe(unmanagedElem);
-  });
-
   it('should have reducer ignore other actions', ()=> {
     testElem1.focus();
 
@@ -97,6 +83,43 @@ describe('focus actions', ()=> {
     await null;
 
     store.dispatch(clearFocus());
+
+    expect(store.getState().focus).toEqual({element: null});
+  });
+});
+
+
+describe('dom interaction', ()=> {
+  let store = null;
+  let testElem1 = null;
+  let unmanagedElem = null;
+
+  beforeEach(()=> {
+    store = createStore(reducers, initialState, compose(focusEnhancer));
+    ReactDOM.render(createApp(), container);
+    testElem1 = document.querySelector('[data-focus="test-elem-1"]');
+    unmanagedElem = document.getElementById('unmanaged-elem');
+  });
+
+
+  it('should update store when managed element received focus', ()=> {
+    testElem1.focus();
+
+    expect(store.getState().focus).toEqual({element: 'test-elem-1'});
+  });
+
+  it('should update store when unmanaged element received focus', ()=> {
+    testElem1.focus();
+    unmanagedElem.focus();
+
+    expect(store.getState().focus).toEqual({element: 'unmanaged'});
+    expect(document.activeElement).toBe(unmanagedElem);
+  });
+
+  it('should handle bluring element without focusing new element', async ()=> {
+    testElem1.focus();
+
+    testElem1.blur();
 
     expect(store.getState().focus).toEqual({element: null});
   });
