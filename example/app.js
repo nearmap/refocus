@@ -10,8 +10,8 @@ const App = ({onFocusInput, onFocusSpan, onClearFocus, focusedElem})=> (
     <br />
     <form className=''>
       <p className='row'>
-        Tab through the components and observe the changes in the
-        redux inspector to the right.
+        Tab through the components or click on the background
+        and observe the changes in the redux inspector to the right.
         <br />
         Try any of the buttons to dispatch a <code>focus()</code> action
         and observe the respective elements being focused.

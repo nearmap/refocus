@@ -10,6 +10,16 @@ const getFocusHandler = (store)=> ({target})=> {
   }
 };
 
+const getBlurHandler = (store)=> ({relatedTarget})=> {
+  // If a focusable element is going to receive focus, the relatedTarget
+  // would be set and we can rely on the focus handler to deal with it.
+  // Otherwise we must assume there is nothing to focus.
+  if (relatedTarget === null || relatedTarget === document) {
+    store.dispatch(focus(null));
+    return;
+  }
+};
+
 
 export default (createStore)=> (reducer, state, enhancer)=> {
   const {documentElement} = document;
@@ -17,6 +27,7 @@ export default (createStore)=> (reducer, state, enhancer)=> {
   const store = createStore(reducer, state, enhancer);
 
   documentElement.addEventListener('focus', getFocusHandler(store), true);
+  documentElement.addEventListener('blur', getBlurHandler(store), true);
 
   let currentElemKey = null;
 
@@ -30,7 +41,7 @@ export default (createStore)=> (reducer, state, enhancer)=> {
     // store changes.
     if (currentElemKey !== focusElemKey) {
       currentElemKey = focusElemKey;
-      
+
       if (focusElemKey === null) {
         document.activeElement.blur();
       } else {
