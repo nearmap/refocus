@@ -69,11 +69,13 @@ const App = ({onFocusInput, onFocusSpan, onClearFocus, focusedElem})=> (
             className='well'
             data-focus='non-input'
           >
-            {/*
+            {
+              /*
               IE has a bug when the clicked child will receive focus
               rather than the parent with the tab-index set.
               This only happens when the child is displayed as flex.
-            */}
+              */
+            }
             <span
               className='label label-default'
               style={{display: 'flex'}}>non-input</span>
