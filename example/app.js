@@ -18,7 +18,7 @@ const App = ({onFocusInput, onFocusSpan, onClearFocus, focusedElem})=> (
       </p>
 
       <p className='row'>
-        <b>Focused Element:</b>
+        <b>Focused Element: </b>
         <span className="label label-default">
           {focusedElem}
         </span>
@@ -61,6 +61,26 @@ const App = ({onFocusInput, onFocusSpan, onClearFocus, focusedElem})=> (
           >
             Example Source
           </a>
+        </li>
+
+        <li>
+          <div
+            tabIndex={0}
+            className='well'
+            data-focus='non-input'
+          >
+            {
+              /*
+              IE has a bug when the clicked child will receive focus
+              rather than the parent with the tab-index set.
+              This only happens when the child is displayed as flex.
+              */
+            }
+            <span
+              className='label label-default'
+              style={{display: 'flex'}}>non-input</span>
+          </div>
+          <br />
         </li>
       </ul>
       <br />

@@ -119,8 +119,26 @@ describe('dom interaction', ()=> {
   it('should handle bluring element without focusing new element', async ()=> {
     testElem1.focus();
 
-    testElem1.blur();
+    // testElem1.blur() is not properly dispatching focusout on the document,
+    // so we have to simulate it more low level.
+    const evt = document.createEvent('HTMLEvents');
+    evt.initEvent('focusout', false, false);
+    evt.relatedTarget = null;
+    document.documentElement.dispatchEvent(evt);
 
     expect(store.getState().focus).toEqual({element: null});
+  });
+
+  it('should ignore bluring element if focusing a new elem', async ()=> {
+    testElem1.focus();
+
+    // testElem1.blur() is not properly dispatching focusout on the document,
+    // so we have to simulate it more low level.
+    const evt = document.createEvent('HTMLEvents');
+    evt.initEvent('focusout', false, false);
+    evt.relatedTarget = 'foobar-elem';
+    document.documentElement.dispatchEvent(evt);
+
+    expect(store.getState().focus).toEqual({element: 'test-elem-1'});
   });
 });
