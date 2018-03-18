@@ -16,8 +16,11 @@ const NODE_ENV = (
 );
 
 module.exports = {
+  target: 'web',
+  mode: 'production',
+
   entry: {
-    app: ['babel-polyfill', './example/index.js']
+    app: ['./example/index.js']
   },
 
   output: {
@@ -36,29 +39,17 @@ module.exports = {
       template: './example/index.html',
       filename: 'index.html',
       chunks: ['app']
-    }),
-    ...(
-      NODE_ENV === 'production' ? [
-        new webpack.optimize.UglifyJsPlugin({
-          compress: {
-            warnings: false
-          },
-          sourceMap: true
-        }),
-        new webpack.optimize.DedupePlugin()
-      ] : []
-    )
+    })
   ],
 
   module: {
-    loaders: [{
+    rules: [{
       test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel'
+      exclude: /node_modules[/\\].*/,
+      loader: 'babel-loader'
     }]
   },
-
-  devtool: NODE_ENV === 'production' ? '' : '#inline-source-map',
+  // devtool: '#inline-source-map',
   devServer: {
     port: 8080,
     host: '0.0.0.0',

@@ -1,10 +1,13 @@
 {
-  "moduleNameMapper": {
+  "transform": {
+    "^.+\\.js$": "babel-jest"
   },
-  "testRegex": "__tests__/.*-test.js$",
   "timers": "fake",
+  "clearMocks": true,
+  "resetMocks": false,
   "collectCoverage": true,
   "coverageDirectory": "./build/cov",
+  "coverageReporters": ["lcov"],
   "coverageThreshold": {
     "global": {
       "branches": 100,

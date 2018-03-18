@@ -1,4 +1,57 @@
 {
-  "presets": ["stage-2", "es2015", "react"],
-  "sourceMaps": "both"
+  env: {
+    // Used as the default for running babel-node scripts
+    development: {
+      sourceMaps: false,
+      presets: [['@babel/preset-env', {
+        modules: false,
+        useBuiltIns: 'usage',
+        targets: {
+          browsers: [
+            'last 1 Chrome versions',
+            'last 1 Safari versions',
+            'last 1 Firefox versions'
+          ]
+        }
+      }], '@babel/preset-stage-2', '@babel/preset-react']
+    },
+    // Jest runs with NODE_ENV=test and will use the following.
+    // We target the current node version to minimize transcompilation.
+    // This should speed up the test run and make it more debugable.
+    test: {
+      sourceMaps: 'both',
+      presets: [['@babel/preset-env', {
+        targets: {
+          node: 'current'
+        }
+      }], '@babel/preset-stage-2', '@babel/preset-react']
+    },
+    // The default used by webpack to package our application for production.
+    production: {
+      presets: [['@babel/preset-env', {
+        modules: false,
+        useBuiltIns: 'usage',
+        debug: true,
+        targets: {
+          browsers: [
+            /* 'last 1 versions',
+            'not IE > 0',
+            'not ie_mob > 0',
+            'not op_mini > 0' */
+            'last 1 Chrome versions',
+            'last 1 Safari versions',
+            'last 1 Firefox versions'
+          ]
+        }
+      }], '@babel/preset-stage-2', '@babel/preset-react']
+    }
+  },
+  // Common to all envs above.
+  plugins: [
+    // Makes sure babel does not include the same code snipped in each file,
+    // but imports helpers from a single module.
+    ['@babel/plugin-transform-runtime', {
+      polyfill: false
+    }]
+  ]
 }
