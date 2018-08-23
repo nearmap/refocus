@@ -49,7 +49,7 @@ module.exports = {
       loader: 'babel-loader'
     }]
   },
-  // devtool: '#inline-source-map',
+  devtool: '#inline-source-map',
   devServer: {
     port: 8080,
     host: '0.0.0.0',
