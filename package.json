@@ -34,7 +34,7 @@
     "redux-devtools-inspector": "^0.9.0",
     "rimraf": "^2.5.4",
     "webpack": "^4.35.2",
-    "webpack-dev-server": "3.7.2"
+    "webpack-dev-server": "3.11.3"
   },
   "dependencies": {
     "redux": "^3.5.2"
